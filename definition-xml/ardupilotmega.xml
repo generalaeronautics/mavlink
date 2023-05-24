@@ -1773,5 +1773,250 @@
       <field type="uint16_t" name="MCU_voltage_min" units="mV">MCU voltage minimum</field>
       <field type="uint16_t" name="MCU_voltage_max" units="mV">MCU voltage maximum</field>
     </message>
+
+    <!-- GA specific messages -->
+    <message name="GA3A_PAYLOAD_STATUS" id="5000">
+      <description>Status of Payload related activities handled by RPi</description>
+      <field name="target_system" type="uint8_t">System ID</field>
+      <field name="target_component" type="uint8_t">Component ID</field>
+      <field name="remain_payload" type="float" units="ltr">Remaining Payload</field>
+      <field name="resume_button_enable" type="uint8_t" units="boolean">Resume button should
+        be enable
+      </field>
+    </message>
+    <message name="GA3A_MISSION_CMD" id="5001">
+      <description>Description of spraying mission related parameters</description>
+      <field name="target_system" type="uint8_t">System ID</field>
+      <field name="target_component" type="uint8_t">Component ID</field>
+      <field name="start_wp" type="uint16_t" units="number">Waypoint from where spraying
+        should start
+      </field>
+      <field name="end_wp" type="uint16_t" units="number">Waypoint at which spraying should
+        stop
+      </field>
+      <field name="mission_alt" type="uint16_t" units="cm">Altitude of the mission</field>
+      <field name="mission_yaw" type="uint16_t" units="deg">Angle of mission respect to
+        North
+      </field>
+    </message>
+    <message name="GA3A_RESUME_CMD" id="5002">
+      <description>Command to resume mission from GCS to RPi</description>
+      <field name="target_system" type="uint8_t">System ID</field>
+      <field name="target_component" type="uint8_t">Component ID</field>
+      <field name="do_resume" type="uint8_t" units="boolean">Do Resume</field>
+    </message>
+    <message name="NPNT_STATUS" id="6000">
+      <description>NPNT Status from Companion Computer to ArduPilot</description>
+      <field name="target_system" type="uint8_t">System ID</field>
+      <field name="target_component" type="uint8_t">Component ID</field>
+      <field name="arming_allowed" type="uint8_t" units="boolean">Arming is Allowed or not
+      </field>
+      <field name="reason" type="char[40]">What is reason if arming is not allowed</field>
+    </message>
+    <message name="NPNT_REQ_LOGS" id="6001">
+      <description>1)Request send from GCS to Companion Computer to prepare logs to download,
+        and to note current date and time. 2)Confirmation from Comp. Computer to GCS to
+        initiate downloading
+      </description>
+      <field name="target_system" type="uint8_t">System ID (0 for broadcast)</field>
+      <field name="target_component" type="uint8_t">Component ID (0 for broadcast)</field>
+      <field name="req_confirm" type="uint8_t">0 -> not confirmed, 1 -> confirmed, send by
+        Comp.Computer
+      </field>
+      <field name="date_time" type="uint8_t[15]">Date_time as string format yyyymmdd_hhmmss,
+        send by GCS
+      </field>
+    </message>
+    <message name="NPNT_UIN_REGISTER" id="6002">
+      <description>1)Request send from GCS to Companion Computer to register UIN
+        2)Confirmation(0 or 1) from Comp. Computer to GCS
+      </description>
+      <field name="target_system" type="uint8_t">System ID (0 for broadcast)</field>
+      <field name="target_component" type="uint8_t">Component ID (0 for broadcast)</field>
+      <field name="confirm" type="uint8_t">0 -> not confirmed, 1 -> confirmed, send by
+        Comp.Computer
+      </field>
+      <field name="size" type="uint8_t">size of UIN send by Comp.Computer</field>
+      <field name="uin" type="uint8_t[30]">UIN as string, send by GCS</field>
+    </message>
+    <message name="NPNT_KEY_ROTATION" id="6003">
+      <description>1)Request send from GCS to Companion Computer for key rotation
+        2)Confirmation(0 or 1) from Comp. Computer to GCS, 0 to download pending flight logs
+      </description>
+      <field name="target_system" type="uint8_t">System ID (0 for broadcast)</field>
+      <field name="target_component" type="uint8_t">Component ID (0 for broadcast)</field>
+      <field name="confirm" type="uint8_t">0 -> not confirmed, 1 -> confirmed, send by
+        Comp.Computer
+      </field>
+    </message>
+    <message name="NPNT_RFM_DETAIL" id="6004">
+      <description>1)Request send from GCS to Companion Computer for knowing RFM details
+      </description>
+      <field name="target_system" type="uint8_t">System ID (0 for broadcast)</field>
+      <field name="target_component" type="uint8_t">Component ID (0 for broadcast)</field>
+      <field name="ver" type="char[10]">Version of RFM code</field>
+      <field name="len_ver" type="uint8_t">Version of RFM code length</field>
+      <field name="ver_crc32" type="char[10]">CRC32 Hash of version</field>
+      <field name="len_ver_crc32" type="uint8_t">CRC32 Hash of version length</field>
+      <field name="rpas_id" type="char[20]">RPAS ID or Drone ID</field>
+      <field name="len_rpas_id" type="uint8_t">RPAS ID or Drone ID lenght</field>
+      <field name="rpas_model_id" type="char[20]">RPAS model number as per DGCA</field>
+      <field name="len_rpas_model_id" type="uint8_t">RPAS model number as per DGCA length
+      </field>
+      <field name="uin" type="char[10]">RPAS UIN</field>
+      <field name="len_uin" type="uint8_t">RPAS UIN length</field>
+      <field name="uuid" type="char[20]">RPAS UUID</field>
+      <field name="len_uuid" type="uint8_t">RPAS UUID length</field>
+      <field name="keyrot_time" type="char[15]">Last key rotation time</field>
+      <field name="len_keyrot_time" type="uint8_t">Last key rotation time</field>
+    </message>
+    <message name="NPNT_GEOFENCE" id="6005">
+      <description>GeoFence coordinate from PA. Will be sent from RPi to GCS</description>
+      <field name="target_system" type="uint8_t">System ID (0 for broadcast)</field>
+      <field name="target_component" type="uint8_t">Component ID (0 for broadcast)</field>
+      <field name="lat" type="int32_t[10]">Latitude Array of Geofence</field>
+      <field name="lon" type="int32_t[10]">Longitude Array of Geofence</field>
+    </message>
+    <message name="NPNT_UUID_REGISTER" id="6006">
+      <description>1)Request send from GCS to Companion Computer to register UUID
+        2)Confirmation(0 or 1) from Comp. Computer to GCS
+      </description>
+      <field name="target_system" type="uint8_t">System ID (0 for broadcast)</field>
+      <field name="target_component" type="uint8_t">Component ID (0 for broadcast)</field>
+      <field name="confirm" type="uint8_t">0 -> not confirmed, 1 -> confirmed, send by
+        Comp.Computer
+      </field>
+      <field name="size" type="uint8_t">size of UIN send by Comp.Computer</field>
+      <field name="uuid" type="uint8_t[30]">UUID as string, send by GCS</field>
+    </message>
+    <message name="NPNT_KEY_ROTATION_TIME" id="6007">
+      <description>1)Request send from GCS to Companion Computer to update key rotation time
+        2)Confirmation(0 or 1) from Comp. Computer to GCS
+      </description>
+      <field name="target_system" type="uint8_t">System ID (0 for broadcast)</field>
+      <field name="target_component" type="uint8_t">Component ID (0 for broadcast)</field>
+      <field name="confirm" type="uint8_t">0 -> not confirmed, 1 -> confirmed, send by
+        Comp.Computer
+      </field>
+      <field name="size" type="uint8_t">size of key rotation time string send by
+        Comp.Computer
+      </field>
+      <field name="keyrot_time" type="char[15]">key rotation time as string, send by GCS
+      </field>
+    </message>
+    <message name="GA3A_SPRAY_WP_INDEX" id="6008">
+      <description>Spray waypoint, start-stop pair send from GCS to Companion Computer
+      </description>
+      <field name="target_system" type="uint8_t">System ID (0 for broadcast)</field>
+      <field name="target_component" type="uint8_t">Component ID (0 for broadcast)</field>
+      <field name="sequence" type="uint16_t">sequence of start-stop waypoint pair send by GCS,
+        Companion computer acknowledges by sending back (sequence+1)
+      </field>
+      <field name="start_wp" type="uint16_t">waypoint at which spray starts</field>
+      <field name="end_wp" type="uint16_t">waypoint at which spray ends</field>
+    </message>
+    <message name="NPNT_FIRMWARE_UPDATE_RESULT" id="6009">
+      <description>Firmware update result from Comp. Computer to GCS</description>
+      <field name="target_system" type="uint8_t">System ID (0 for broadcast)</field>
+      <field name="target_component" type="uint8_t">Component ID (0 for broadcast)</field>
+      <field name="result" type="uint8_t">0 -> firmware update failed, 1 -> firmware update
+        successful
+      </field>
+      <field name="remarks" type="char[200]">firmware update result remarks</field>
+    </message>
+    <message name="GA_CC_STATUS_TEXT" id="6010">
+      <description>Status text message from Comp. Computer to GCS</description>
+      <field name="target_system" type="uint8_t">System ID (0 for broadcast)</field>
+      <field name="target_component" type="uint8_t">Component ID (0 for broadcast)</field>
+      <field name="status_text" type="char[250]">status text message</field>
+    </message>
+    <message name="GA_MAV_BATT_STATUS" id="7000">
+      <description>Battery data from Companion computer</description>
+      <field name="target_system" type="uint8_t">System ID (0 for broadcast)</field>
+      <field name="target_component" type="uint8_t">Component ID (0 for broadcast)</field>
+      <field name="voltage" type="int16_t">Battery Voltage * 10</field>
+      <field name="current" type="int16_t">Battery Current * 10</field>
+      <field name="consumed_mah" type="int32_t">Battery Consumed mAh</field>
+    </message>
+    <message name="GA_SET_PARAM" id="7001">
+      <description>Vehicle ID Parameter Setter</description>
+      <field name="target_system" type="uint8_t">System ID (0 for broadcast)</field>
+      <field name="target_component" type="uint8_t">Component ID (0 for broadcast)</field>
+      <field name="param_id" type="char[20]">Key</field>
+      <field name="param_val" type="char[50]">Value</field>
+    </message>
+    <message name="GA_GET_PARAM" id="7002">
+      <description>Vehicle ID Paramater Fetcher</description>
+      <field name="target_system" type="uint8_t">System ID (0 for broadcast)</field>
+      <field name="target_component" type="uint8_t">Component ID (0 for broadcast)</field>
+      <field name="param_id" type="char[20]">Key</field>
+    </message>
+    <message name="GA_PARAM" id="7003">
+      <description>Vehicle Prameter info</description>
+      <field name="target_system" type="uint8_t">System ID (0 for broadcast)</field>
+      <field name="target_component" type="uint8_t">Component ID (0 for broadcast)</field>
+      <field name="param_id" type="char[20]">Key</field>
+      <field name="param_val" type="char[50]">Value</field>
+    </message>
+    <message name="GA_COMMAND" id="7004">
+      <description>GA Command send from GCS</description>
+      <field name="target_system" type="uint8_t">System ID (0 for broadcast)</field>
+      <field name="target_component" type="uint8_t">Component ID (0 for broadcast)</field>
+      <field name="time_unix_usec" type="uint64_t" units="us">Timestamp (UNIX epoch time).
+      </field>
+      <field name="command" type="uint8_t">command id</field>
+    </message>
+    <message name="GA_COMMAND_ACK" id="7005">
+      <description>GA Command Acknowledgement from CC</description>
+      <field name="target_system" type="uint8_t">System ID (0 for broadcast)</field>
+      <field name="target_component" type="uint8_t">Component ID (0 for broadcast)</field>
+      <field name="command" type="uint8_t">command id</field>
+      <field name="result" type="uint8_t">0->failed, 1->passed</field>
+      <field name="reason" type="char[50]">Reason of failure</field>
+    </message>
+    <message name="BOUNDARY_COUNT" id="7006">
+      <description>Total number of vertical of a boundary</description>
+      <field name="target_system" type="uint8_t">System ID (0 for broadcast)</field>
+      <field name="target_component" type="uint8_t">Component ID (0 for broadcast)</field>
+      <field name="boundary_type" type="uint8_t">Boundary Type (0 for boundary and 1 for
+        obstacle)
+      </field>
+      <field name="count" type="uint8_t">count</field>
+      <field name="obstacle_no" type="uint8_t">key</field>
+      <field name="total_obstacles" type="uint8_t">total number of obstacles</field>
+    </message>
+    <message name="BOUNDARY_REQUEST_INT" id="7007">
+      <description>Boundary Point Request</description>
+      <field name="target_system" type="uint8_t">System ID (0 for broadcast)</field>
+      <field name="target_component" type="uint8_t">Component ID (0 for broadcast)</field>
+      <field name="boundary_type" type="uint8_t">Boundary Type (0 for boundary and 1 for
+        obstacle)
+      </field>
+      <field name="seqno" type="uint8_t">seqno</field>
+      <field name="obstacle_no" type="uint8_t">key</field>
+    </message>
+    <message name="BOUNDARY_ITEM_INT" id="7008">
+      <description>Boundary Item send</description>
+      <field name="target_system" type="uint8_t">System ID (0 for broadcast)</field>
+      <field name="target_component" type="uint8_t">Component ID (0 for broadcast)</field>
+      <field name="boundary_type" type="uint8_t">Boundary Type (0 for boundary and 1 for
+        obstacle)
+      </field>
+      <field name="seqno" type="uint8_t">seqno</field>
+      <field name="lat" type="int32_t">Latitude in deg*1e7</field>
+      <field name="lon" type="int32_t">Longitude in deg*1e7</field>
+      <field name="margin" type="int32_t">Margin in centimeter</field>
+      <field name="obstacle_no" type="uint8_t">key</field>
+    </message>
+    <message name="BOUNDARY_ACK" id="7009">
+      <description>Boundary ACK</description>
+      <field name="target_system" type="uint8_t">System ID (0 for broadcast)</field>
+      <field name="target_component" type="uint8_t">Component ID (0 for broadcast)</field>
+      <field name="boundary_type" type="uint8_t">Boundary Type (0 for boundary and 1 for
+        obstacle)
+      </field>
+      <field name="ack" type="char[20]">Key</field>
+      <field name="obstacle_no" type="uint8_t">key</field>
+    </message>
   </messages>
 </mavlink>
