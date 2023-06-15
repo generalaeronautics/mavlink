@@ -2018,5 +2018,37 @@
       <field name="ack" type="char[20]">Key</field>
       <field name="obstacle_no" type="uint8_t">key</field>
     </message>
+    <message id="7010" name="SMART_PATH_REQUEST_LIST"> (in loop)
+      <description>Smart Path Request</description>
+      <field type="uint8_t" name="target_system">System ID (0 for broadcast)</field>
+      <field type="uint8_t" name="target_component">Component ID (0 for broadcast)</field>
+    </message>
+    <message id="7011" name="SMART_PATH_COUNT">
+      <description>Total number of vertical of a smart path</description>
+      <field type="uint8_t" name="target_system">System ID (0 for broadcast)</field>
+      <field type="uint8_t" name="target_component">Component ID (0 for broadcast)</field>
+      <field type="uint8_t" name="count">count</field>
+    </message>
+    <message id="7012" name="SMART_PATH_REQUEST_INT">
+      <description>Smart Path Point Request</description>
+      <field type="uint8_t" name="target_system">System ID (0 for broadcast)</field>
+      <field type="uint8_t" name="target_component">Component ID (0 for broadcast)</field>
+      <field type="uint8_t" name="seqno">seqno</field>
+    </message>
+    <message id="7013" name="SMART_PATH_ITEM_INT">
+      <description>Smart Path Item send</description>
+      <field type="uint8_t" name="target_system">System ID (0 for broadcast)</field>
+      <field type="uint8_t" name="target_component">Component ID (0 for broadcast)</field>
+      <field type="uint8_t" name="seqno">seqno</field>
+      <field type="int32_t" name="lat">Latitude in deg*1e7</field>
+      <field type="int32_t" name="lon">Longitude in deg*1e7</field>
+      <field type="float" name="alt" units="m">Altitude (MSL)</field>
+    </message>
+    <message id="7014" name="SMART_PATH_ACK">
+      <description>Boundary ACK</description>
+      <field type="uint8_t" name="target_system">System ID (0 for broadcast)</field>
+      <field type="uint8_t" name="target_component">Component ID (0 for broadcast)</field>
+      <field type="char[20]" name="ack">Key</field>
+    </message>
   </messages>
 </mavlink>

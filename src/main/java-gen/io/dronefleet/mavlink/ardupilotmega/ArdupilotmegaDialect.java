@@ -116,6 +116,11 @@ public final class ArdupilotmegaDialect extends AbstractMavlinkDialect {
             .put(7007, BoundaryRequestInt.class)
             .put(7008, BoundaryItemInt.class)
             .put(7009, BoundaryAck.class)
+            .put(7010, SmartPathRequestList.class)
+            .put(7011, SmartPathCount.class)
+            .put(7012, SmartPathRequestInt.class)
+            .put(7013, SmartPathItemInt.class)
+            .put(7014, SmartPathAck.class)
             .build();
 
     public ArdupilotmegaDialect() {
