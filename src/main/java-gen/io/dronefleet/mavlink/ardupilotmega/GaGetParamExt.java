@@ -9,33 +9,31 @@ import java.lang.String;
 import java.util.Objects;
 
 /**
- * 1)Request send from GCS to Companion Computer to update key rotation time 2)Confirmation(0 or 
- * 1) from Comp. Computer to GCS 
+ * FCS Parameter request 
  */
 @MavlinkMessageInfo(
-        id = 6007,
-        crc = 2,
-        description = "1)Request send from GCS to Companion Computer to update key rotation time\n"
-                        + "        2)Confirmation(0 or 1) from Comp. Computer to GCS"
+        id = 7006,
+        crc = 247,
+        description = "FCS Parameter request"
 )
-public final class NpntKeyRotationTime {
+public final class GaGetParamExt {
     private final int targetSystem;
 
     private final int targetComponent;
 
-    private final int confirm;
+    private final String paramId;
 
-    private final int size;
+    private final String paramAuxId1;
 
-    private final String keyrotTime;
+    private final String paramAuxId2;
 
-    private NpntKeyRotationTime(int targetSystem, int targetComponent, int confirm, int size,
-            String keyrotTime) {
+    private GaGetParamExt(int targetSystem, int targetComponent, String paramId, String paramAuxId1,
+            String paramAuxId2) {
         this.targetSystem = targetSystem;
         this.targetComponent = targetComponent;
-        this.confirm = confirm;
-        this.size = size;
-        this.keyrotTime = keyrotTime;
+        this.paramId = paramId;
+        this.paramAuxId1 = paramAuxId1;
+        this.paramAuxId2 = paramAuxId2;
     }
 
     /**
@@ -71,54 +69,54 @@ public final class NpntKeyRotationTime {
     }
 
     /**
-     * 0 -&gt; not confirmed, 1 -&gt; confirmed, send by Comp.Computer 
+     * Key 
      */
     @MavlinkFieldInfo(
             position = 3,
             unitSize = 1,
-            description = "0 -> not confirmed, 1 -> confirmed, send by\n"
-                            + "        Comp.Computer"
+            arraySize = 50,
+            description = "Key"
     )
-    public final int confirm() {
-        return this.confirm;
+    public final String paramId() {
+        return this.paramId;
     }
 
     /**
-     * size of key rotation time string send by Comp.Computer 
+     * Value 
      */
     @MavlinkFieldInfo(
             position = 4,
             unitSize = 1,
-            description = "size of key rotation time string send by\n"
-                            + "        Comp.Computer"
+            arraySize = 50,
+            description = "Value"
     )
-    public final int size() {
-        return this.size;
+    public final String paramAuxId1() {
+        return this.paramAuxId1;
     }
 
     /**
-     * key rotation time as string, send by GCS 
+     * Value 
      */
     @MavlinkFieldInfo(
             position = 5,
             unitSize = 1,
-            arraySize = 15,
-            description = "key rotation time as string, send by GCS"
+            arraySize = 50,
+            description = "Value"
     )
-    public final String keyrotTime() {
-        return this.keyrotTime;
+    public final String paramAuxId2() {
+        return this.paramAuxId2;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || !getClass().equals(o.getClass())) return false;
-        NpntKeyRotationTime other = (NpntKeyRotationTime)o;
+        GaGetParamExt other = (GaGetParamExt)o;
         if (!Objects.deepEquals(targetSystem, other.targetSystem)) return false;
         if (!Objects.deepEquals(targetComponent, other.targetComponent)) return false;
-        if (!Objects.deepEquals(confirm, other.confirm)) return false;
-        if (!Objects.deepEquals(size, other.size)) return false;
-        if (!Objects.deepEquals(keyrotTime, other.keyrotTime)) return false;
+        if (!Objects.deepEquals(paramId, other.paramId)) return false;
+        if (!Objects.deepEquals(paramAuxId1, other.paramAuxId1)) return false;
+        if (!Objects.deepEquals(paramAuxId2, other.paramAuxId2)) return false;
         return true;
     }
 
@@ -127,19 +125,19 @@ public final class NpntKeyRotationTime {
         int result = 0;
         result = 31 * result + Objects.hashCode(targetSystem);
         result = 31 * result + Objects.hashCode(targetComponent);
-        result = 31 * result + Objects.hashCode(confirm);
-        result = 31 * result + Objects.hashCode(size);
-        result = 31 * result + Objects.hashCode(keyrotTime);
+        result = 31 * result + Objects.hashCode(paramId);
+        result = 31 * result + Objects.hashCode(paramAuxId1);
+        result = 31 * result + Objects.hashCode(paramAuxId2);
         return result;
     }
 
     @Override
     public String toString() {
-        return "NpntKeyRotationTime{targetSystem=" + targetSystem
+        return "GaGetParamExt{targetSystem=" + targetSystem
                  + ", targetComponent=" + targetComponent
-                 + ", confirm=" + confirm
-                 + ", size=" + size
-                 + ", keyrotTime=" + keyrotTime + "}";
+                 + ", paramId=" + paramId
+                 + ", paramAuxId1=" + paramAuxId1
+                 + ", paramAuxId2=" + paramAuxId2 + "}";
     }
 
     public static final class Builder {
@@ -147,11 +145,11 @@ public final class NpntKeyRotationTime {
 
         private int targetComponent;
 
-        private int confirm;
+        private String paramId;
 
-        private int size;
+        private String paramAuxId1;
 
-        private String keyrotTime;
+        private String paramAuxId2;
 
         /**
          * System ID (0 for broadcast) 
@@ -180,49 +178,49 @@ public final class NpntKeyRotationTime {
         }
 
         /**
-         * 0 -&gt; not confirmed, 1 -&gt; confirmed, send by Comp.Computer 
+         * Key 
          */
         @MavlinkFieldInfo(
                 position = 3,
                 unitSize = 1,
-                description = "0 -> not confirmed, 1 -> confirmed, send by\n"
-                                + "        Comp.Computer"
+                arraySize = 50,
+                description = "Key"
         )
-        public final Builder confirm(int confirm) {
-            this.confirm = confirm;
+        public final Builder paramId(String paramId) {
+            this.paramId = paramId;
             return this;
         }
 
         /**
-         * size of key rotation time string send by Comp.Computer 
+         * Value 
          */
         @MavlinkFieldInfo(
                 position = 4,
                 unitSize = 1,
-                description = "size of key rotation time string send by\n"
-                                + "        Comp.Computer"
+                arraySize = 50,
+                description = "Value"
         )
-        public final Builder size(int size) {
-            this.size = size;
+        public final Builder paramAuxId1(String paramAuxId1) {
+            this.paramAuxId1 = paramAuxId1;
             return this;
         }
 
         /**
-         * key rotation time as string, send by GCS 
+         * Value 
          */
         @MavlinkFieldInfo(
                 position = 5,
                 unitSize = 1,
-                arraySize = 15,
-                description = "key rotation time as string, send by GCS"
+                arraySize = 50,
+                description = "Value"
         )
-        public final Builder keyrotTime(String keyrotTime) {
-            this.keyrotTime = keyrotTime;
+        public final Builder paramAuxId2(String paramAuxId2) {
+            this.paramAuxId2 = paramAuxId2;
             return this;
         }
 
-        public final NpntKeyRotationTime build() {
-            return new NpntKeyRotationTime(targetSystem, targetComponent, confirm, size, keyrotTime);
+        public final GaGetParamExt build() {
+            return new GaGetParamExt(targetSystem, targetComponent, paramId, paramAuxId1, paramAuxId2);
         }
     }
 }

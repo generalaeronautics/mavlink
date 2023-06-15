@@ -83,8 +83,7 @@ public final class Ga3aPayloadStatus {
     @MavlinkFieldInfo(
             position = 4,
             unitSize = 1,
-            description = "Resume button should\n"
-                            + "        be enable"
+            description = "Resume button should be enable"
     )
     public final int resumeButtonEnable() {
         return this.resumeButtonEnable;
@@ -174,8 +173,7 @@ public final class Ga3aPayloadStatus {
         @MavlinkFieldInfo(
                 position = 4,
                 unitSize = 1,
-                description = "Resume button should\n"
-                                + "        be enable"
+                description = "Resume button should be enable"
         )
         public final Builder resumeButtonEnable(int resumeButtonEnable) {
             this.resumeButtonEnable = resumeButtonEnable;

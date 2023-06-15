@@ -4568,34 +4568,6 @@ public enum MavCmd {
     MAV_CMD_FIXED_MAG_CAL_FIELD,
 
     /**
-     * Set EKF sensor source set. 
-     * <dl>
-     *   <dt>param1</dt>
-     *   <dd>Source Set Id.</dd>
-     *
-     *   <dt>param2</dt>
-     *   <dd>Empty.</dd>
-     *
-     *   <dt>param3</dt>
-     *   <dd>Empty.</dd>
-     *
-     *   <dt>param4</dt>
-     *   <dd>Empty.</dd>
-     *
-     *   <dt>param5</dt>
-     *   <dd>Empty.</dd>
-     *
-     *   <dt>param6</dt>
-     *   <dd>Empty.</dd>
-     *
-     *   <dt>param7</dt>
-     *   <dd>Empty.</dd>
-     * </dl>
-     */
-    @MavlinkEntryInfo(42007)
-    MAV_CMD_SET_EKF_SOURCE_SET,
-
-    /**
      * Initiate a magnetometer calibration. 
      * <dl>
      *   <dt>param1</dt>
@@ -4956,62 +4928,6 @@ public enum MavCmd {
      */
     @MavlinkEntryInfo(42701)
     MAV_CMD_SCRIPTING,
-
-    /**
-     * Scripting command as NAV command with wait for completion. 
-     * <dl>
-     *   <dt>param1</dt>
-     *   <dd>integer command number (0 to 255)</dd>
-     *
-     *   <dt>param2</dt>
-     *   <dd>timeout for operation in seconds. Zero means no timeout (0 to 255)</dd>
-     *
-     *   <dt>param3</dt>
-     *   <dd>argument1.</dd>
-     *
-     *   <dt>param4</dt>
-     *   <dd>argument2.</dd>
-     *
-     *   <dt>param5</dt>
-     *   <dd>Empty</dd>
-     *
-     *   <dt>param6</dt>
-     *   <dd>Empty</dd>
-     *
-     *   <dt>param7</dt>
-     *   <dd>Empty</dd>
-     * </dl>
-     */
-    @MavlinkEntryInfo(42702)
-    MAV_CMD_NAV_SCRIPT_TIME,
-
-    /**
-     * Maintain an attitude for a specified time. 
-     * <dl>
-     *   <dt>param1</dt>
-     *   <dd>Time to maintain specified attitude and climb rate</dd>
-     *
-     *   <dt>param2</dt>
-     *   <dd>Roll angle in degrees (positive is lean right, negative is lean left)</dd>
-     *
-     *   <dt>param3</dt>
-     *   <dd>Pitch angle in degrees (positive is lean back, negative is lean forward)</dd>
-     *
-     *   <dt>param4</dt>
-     *   <dd>Yaw angle</dd>
-     *
-     *   <dt>param5</dt>
-     *   <dd>Climb rate</dd>
-     *
-     *   <dt>param6</dt>
-     *   <dd>Empty</dd>
-     *
-     *   <dt>param7</dt>
-     *   <dd>Empty</dd>
-     * </dl>
-     */
-    @MavlinkEntryInfo(42703)
-    MAV_CMD_NAV_ATTITUDE_TIME,
 
     /**
      * Change flight speed at a given rate. This slews the vehicle at a controllable rate between it's 

@@ -12,7 +12,7 @@ import java.util.Objects;
  * Boundary ACK 
  */
 @MavlinkMessageInfo(
-        id = 7009,
+        id = 7010,
         crc = 180,
         description = "Boundary ACK"
 )
@@ -74,8 +74,7 @@ public final class BoundaryAck {
     @MavlinkFieldInfo(
             position = 3,
             unitSize = 1,
-            description = "Boundary Type (0 for boundary and 1 for\n"
-                            + "        obstacle)"
+            description = "Boundary Type (0 for boundary and 1 for obstacle)"
     )
     public final int boundaryType() {
         return this.boundaryType;
@@ -182,8 +181,7 @@ public final class BoundaryAck {
         @MavlinkFieldInfo(
                 position = 3,
                 unitSize = 1,
-                description = "Boundary Type (0 for boundary and 1 for\n"
-                                + "        obstacle)"
+                description = "Boundary Type (0 for boundary and 1 for obstacle)"
         )
         public final Builder boundaryType(int boundaryType) {
             this.boundaryType = boundaryType;

@@ -4,9 +4,8 @@
   <!-- Vendors -->
   <include>uAvionix.xml</include>
   <include>icarous.xml</include>
-  <include>cubepilot.xml</include>
   <dialect>2</dialect>
-  <!-- Note that ArduPilot-specific messages should use the command id range from 150 to 250, to leave plenty of room for growth of common.xml If you prototype a message here, then you should consider if it is general enough to move into common.xml later -->
+  <!-- Note that APM specific messages should use the command id range from 150 to 250, to leave plenty of room for growth of common.xml If you prototype a message here, then you should consider if it is general enough to move into common.xml later -->
   <enums>
     <enum name="ACCELCAL_VEHICLE_POS">
       <entry value="1" name="ACCELCAL_VEHICLE_POS_LEVEL"/>
@@ -122,7 +121,7 @@
       </entry>
       <entry value="42004" name="MAV_CMD_FIXED_MAG_CAL" hasLocation="false" isDestination="false">
         <description>Magnetometer calibration based on fixed position
-        in earth field given by inclination, declination and intensity.</description>
+          in earth field given by inclination, declination and intensity.</description>
         <param index="1" label="Declination" units="deg">Magnetic declination.</param>
         <param index="2" label="Inclination" units="deg">Magnetic inclination.</param>
         <param index="3" label="Intensity" units="mgauss">Magnetic intensity.</param>
@@ -142,16 +141,6 @@
         <param index="7">Empty.</param>
       </entry>
       <!-- 42006 MAV_CMD_FIXED_MAG_CAL_YAW moved to common.xml -->
-      <entry value="42007" name="MAV_CMD_SET_EKF_SOURCE_SET" hasLocation="false" isDestination="false">
-        <description>Set EKF sensor source set.</description>
-        <param index="1" label="SourceSetId" minValue="1" maxValue="3" increment="1">Source Set Id.</param>
-        <param index="2">Empty.</param>
-        <param index="3">Empty.</param>
-        <param index="4">Empty.</param>
-        <param index="5">Empty.</param>
-        <param index="6">Empty.</param>
-        <param index="7">Empty.</param>
-      </entry>
       <entry value="42424" name="MAV_CMD_DO_START_MAG_CAL" hasLocation="false" isDestination="false">
         <description>Initiate a magnetometer calibration.</description>
         <param index="1" label="Magnetometers Bitmask" minValue="0" maxValue="255" increment="1">Bitmask of magnetometers to calibrate. Use 0 to calibrate all sensors that can be started (sensors may not start if disabled, unhealthy, etc.). The command will NACK if calibration does not start for a sensor explicitly specified by the bitmask.</param>
@@ -282,26 +271,6 @@
         <description>Control onboard scripting.</description>
         <param index="1" enum="SCRIPTING_CMD">Scripting command to execute</param>
       </entry>
-      <entry value="42702" name="MAV_CMD_NAV_SCRIPT_TIME" hasLocation="false" isDestination="false">
-        <description>Scripting command as NAV command with wait for completion.</description>
-        <param index="1" label="command">integer command number (0 to 255)</param>
-        <param index="2" label="timeout" units="s">timeout for operation in seconds. Zero means no timeout (0 to 255)</param>
-        <param index="3" label="arg1">argument1.</param>
-        <param index="4" label="arg2">argument2.</param>
-        <param index="5">Empty</param>
-        <param index="6">Empty</param>
-        <param index="7">Empty</param>
-      </entry>
-      <entry value="42703" name="MAV_CMD_NAV_ATTITUDE_TIME" hasLocation="false" isDestination="false">
-        <description>Maintain an attitude for a specified time.</description>
-        <param index="1" label="time" units="s">Time to maintain specified attitude and climb rate</param>
-        <param index="2" label="roll" units="deg">Roll angle in degrees (positive is lean right, negative is lean left)</param>
-        <param index="3" label="pitch" units="deg">Pitch angle in degrees (positive is lean back, negative is lean forward)</param>
-        <param index="4" label="yaw" units="deg">Yaw angle</param>
-        <param index="5" label="climb_rate" units="m/s">Climb rate</param>
-        <param index="6">Empty</param>
-        <param index="7">Empty</param>
-      </entry>
       <entry value="43000" name="MAV_CMD_GUIDED_CHANGE_SPEED" hasLocation="false" isDestination="false">
         <description>Change flight speed at a given rate. This slews the vehicle at a controllable rate between it's previous speed and the new one. (affects GUIDED only. Outside GUIDED, aircraft ignores these commands. Designed for onboard companion-computer command-and-control, not normally operator/GCS control.)</description>
         <param index="1" label="speed type" enum="SPEED_TYPE">Airspeed or groundspeed.</param>
@@ -339,12 +308,6 @@
       </entry>
       <entry value="1" name="SCRIPTING_CMD_REPL_STOP">
         <description>End a REPL session.</description>
-      </entry>
-      <entry value="2" name="SCRIPTING_CMD_STOP">
-        <description>Stop execution of scripts.</description>
-      </entry>
-      <entry value="3" name="SCRIPTING_CMD_STOP_AND_RESTART">
-        <description>Stop execution of scripts and restart.</description>
       </entry>
     </enum>
     <!-- AP_Limits Enums -->
@@ -1068,7 +1031,6 @@
       <entry value="24" name="COPTER_MODE_ZIGZAG"/>
       <entry value="25" name="COPTER_MODE_SYSTEMID"/>
       <entry value="26" name="COPTER_MODE_AUTOROTATE"/>
-      <entry value="27" name="COPTER_MODE_AUTO_RTL"/>
     </enum>
     <enum name="SUB_MODE">
       <description>A mapping of sub flight modes for custom_mode field of heartbeat.</description>
@@ -1152,7 +1114,7 @@
       <field type="int16_t" name="mag_ofs_z">Magnetometer Z offset.</field>
     </message>
     <message id="152" name="MEMINFO">
-      <description>State of autopilot RAM.</description>
+      <description>State of APM memory.</description>
       <field type="uint16_t" name="brkval">Heap top.</field>
       <field type="uint16_t" name="freemem" units="bytes">Free memory.</field>
       <extensions/>
@@ -1215,14 +1177,12 @@
       <field type="uint8_t" name="save_position">If "1" it will save current trimmed position on EEPROM (just valid for NEUTRAL and LANDING).</field>
     </message>
     <message id="158" name="MOUNT_STATUS">
-      <description>Message with some status from autopilot to GCS about camera or antenna mount.</description>
+      <description>Message with some status from APM to GCS about camera or antenna mount.</description>
       <field type="uint8_t" name="target_system">System ID.</field>
       <field type="uint8_t" name="target_component">Component ID.</field>
       <field type="int32_t" name="pointing_a" units="cdeg">Pitch.</field>
       <field type="int32_t" name="pointing_b" units="cdeg">Roll.</field>
       <field type="int32_t" name="pointing_c" units="cdeg">Yaw.</field>
-      <extensions/>
-      <field type="uint8_t" name="mount_mode" enum="MAV_MOUNT_MODE">Mount operating mode.</field>
     </message>
     <!-- geo-fence messages -->
     <message id="160" name="FENCE_POINT">
@@ -1509,9 +1469,6 @@
       <field type="float" name="P">P component.</field>
       <field type="float" name="I">I component.</field>
       <field type="float" name="D">D component.</field>
-      <extensions/>
-      <field type="float" name="SRate">Slew rate.</field>
-      <field type="float" name="PDmod">P/D oscillation modifier.</field>
     </message>
     <message id="195" name="DEEPSTALL">
       <description>Deepstall path planning.</description>
@@ -1765,277 +1722,184 @@
       <field type="float" name="distance" units="m">Distance (uncorrected)</field>
       <field type="float" name="temperature" units="degC">Water temperature</field>
     </message>
-    <message id="11039" name="MCU_STATUS">
-      <description>The MCU status, giving MCU temperature and voltage. The min and max voltages are to allow for detecting power supply instability.</description>
-      <field type="uint8_t" name="id" instance="true">MCU instance</field>
-      <field type="int16_t" name="MCU_temperature" units="cdegC">MCU Internal temperature</field>
-      <field type="uint16_t" name="MCU_voltage" units="mV">MCU voltage</field>
-      <field type="uint16_t" name="MCU_voltage_min" units="mV">MCU voltage minimum</field>
-      <field type="uint16_t" name="MCU_voltage_max" units="mV">MCU voltage maximum</field>
-    </message>
-
     <!-- GA specific messages -->
-    <message name="GA3A_PAYLOAD_STATUS" id="5000">
+    <message id="5000" name="GA3A_PAYLOAD_STATUS">
       <description>Status of Payload related activities handled by RPi</description>
-      <field name="target_system" type="uint8_t">System ID</field>
-      <field name="target_component" type="uint8_t">Component ID</field>
-      <field name="remain_payload" type="float" units="ltr">Remaining Payload</field>
-      <field name="resume_button_enable" type="uint8_t" units="boolean">Resume button should
-        be enable
-      </field>
+      <field type="uint8_t" name="target_system">System ID</field>
+      <field type="uint8_t" name="target_component">Component ID</field>
+      <field type="float" name="remain_payload" units="ltr">Remaining Payload</field>
+      <field type="uint8_t" name="resume_button_enable" units="boolean">Resume button should be enable</field>
     </message>
-    <message name="GA3A_MISSION_CMD" id="5001">
+    <message id="5001" name="GA3A_MISSION_CMD">
       <description>Description of spraying mission related parameters</description>
-      <field name="target_system" type="uint8_t">System ID</field>
-      <field name="target_component" type="uint8_t">Component ID</field>
-      <field name="start_wp" type="uint16_t" units="number">Waypoint from where spraying
-        should start
-      </field>
-      <field name="end_wp" type="uint16_t" units="number">Waypoint at which spraying should
-        stop
-      </field>
-      <field name="mission_alt" type="uint16_t" units="cm">Altitude of the mission</field>
-      <field name="mission_yaw" type="uint16_t" units="deg">Angle of mission respect to
-        North
-      </field>
+      <field type="uint8_t" name="target_system">System ID</field>
+      <field type="uint8_t" name="target_component">Component ID</field>
+      <field type="uint16_t" name="start_wp" units="number">Waypoint from where spraying should start</field>
+      <field type="uint16_t" name="end_wp" units="number">Waypoint at which spraying should stop</field>
+      <field type="uint16_t" name="mission_alt" units="cm">Altitude of the mission</field>
+      <field type="uint16_t" name="mission_yaw" units="deg">Angle of mission respect to North</field>
     </message>
-    <message name="GA3A_RESUME_CMD" id="5002">
+    <message id="5002" name="GA3A_RESUME_CMD">
       <description>Command to resume mission from GCS to RPi</description>
-      <field name="target_system" type="uint8_t">System ID</field>
-      <field name="target_component" type="uint8_t">Component ID</field>
-      <field name="do_resume" type="uint8_t" units="boolean">Do Resume</field>
+      <field type="uint8_t" name="target_system">System ID</field>
+      <field type="uint8_t" name="target_component">Component ID</field>
+      <field type="uint8_t" name="do_resume" units="boolean">Do Resume</field>
     </message>
-    <message name="NPNT_STATUS" id="6000">
+    <message id="6000" name="NPNT_STATUS">
       <description>NPNT Status from Companion Computer to ArduPilot</description>
-      <field name="target_system" type="uint8_t">System ID</field>
-      <field name="target_component" type="uint8_t">Component ID</field>
-      <field name="arming_allowed" type="uint8_t" units="boolean">Arming is Allowed or not
-      </field>
-      <field name="reason" type="char[40]">What is reason if arming is not allowed</field>
+      <field type="uint8_t" name="target_system">System ID</field>
+      <field type="uint8_t" name="target_component">Component ID</field>
+      <field type="uint8_t" name="arming_allowed" units="boolean">Arming is Allowed or not</field>
+      <field type="char[40]" name="reason">What is reason if arming is not allowed</field>
     </message>
-    <message name="NPNT_REQ_LOGS" id="6001">
-      <description>1)Request send from GCS to Companion Computer to prepare logs to download,
-        and to note current date and time. 2)Confirmation from Comp. Computer to GCS to
-        initiate downloading
-      </description>
-      <field name="target_system" type="uint8_t">System ID (0 for broadcast)</field>
-      <field name="target_component" type="uint8_t">Component ID (0 for broadcast)</field>
-      <field name="req_confirm" type="uint8_t">0 -> not confirmed, 1 -> confirmed, send by
-        Comp.Computer
-      </field>
-      <field name="date_time" type="uint8_t[15]">Date_time as string format yyyymmdd_hhmmss,
-        send by GCS
-      </field>
+    <message id="6001" name="NPNT_REQ_LOGS">
+      <description>1)Request send from GCS to Companion Computer to prepare logs to download, and to note current date and time. 2)Confirmation from Comp. Computer to GCS to initiate downloading </description>
+      <field type="uint8_t" name="target_system">System ID (0 for broadcast)</field>
+      <field type="uint8_t" name="target_component">Component ID (0 for broadcast)</field>
+      <field type="uint8_t" name="req_confirm">0 -> not confirmed, 1 -> confirmed, send by Comp.Computer</field>
+      <field type="uint8_t[15]" name="date_time">Date_time as string format yyyymmdd_hhmmss, send by GCS</field>
     </message>
-    <message name="NPNT_UIN_REGISTER" id="6002">
-      <description>1)Request send from GCS to Companion Computer to register UIN
-        2)Confirmation(0 or 1) from Comp. Computer to GCS
-      </description>
-      <field name="target_system" type="uint8_t">System ID (0 for broadcast)</field>
-      <field name="target_component" type="uint8_t">Component ID (0 for broadcast)</field>
-      <field name="confirm" type="uint8_t">0 -> not confirmed, 1 -> confirmed, send by
-        Comp.Computer
-      </field>
-      <field name="size" type="uint8_t">size of UIN send by Comp.Computer</field>
-      <field name="uin" type="uint8_t[30]">UIN as string, send by GCS</field>
+    <message id="6002" name="NPNT_UIN_REGISTER">
+      <description>1)Request send from GCS to Companion Computer to register UIN 2)Confirmation(0 or 1) from Comp. Computer to GCS </description>
+      <field type="uint8_t" name="target_system">System ID (0 for broadcast)</field>
+      <field type="uint8_t" name="target_component">Component ID (0 for broadcast)</field>
+      <field type="uint8_t" name="confirm">0 -> not confirmed, 1 -> confirmed, send by Comp.Computer</field>
+      <field type="uint8_t" name="size">size of UIN send by Comp.Computer</field>
+      <field type="uint8_t[30]" name="uin">UIN as string, send by GCS</field>
     </message>
-    <message name="NPNT_KEY_ROTATION" id="6003">
-      <description>1)Request send from GCS to Companion Computer for key rotation
-        2)Confirmation(0 or 1) from Comp. Computer to GCS, 0 to download pending flight logs
-      </description>
-      <field name="target_system" type="uint8_t">System ID (0 for broadcast)</field>
-      <field name="target_component" type="uint8_t">Component ID (0 for broadcast)</field>
-      <field name="confirm" type="uint8_t">0 -> not confirmed, 1 -> confirmed, send by
-        Comp.Computer
-      </field>
+    <message id="6003" name="NPNT_KEY_ROTATION">
+      <description>1)Request send from GCS to Companion Computer for key rotation 2)Confirmation(0 or 1) from Comp. Computer to GCS, 0 to download pending flight logs </description>
+      <field type="uint8_t" name="target_system">System ID (0 for broadcast)</field>
+      <field type="uint8_t" name="target_component">Component ID (0 for broadcast)</field>
+      <field type="uint8_t" name="confirm">0 -> not confirmed, 1 -> confirmed, send by Comp.Computer</field>
     </message>
-    <message name="NPNT_RFM_DETAIL" id="6004">
-      <description>1)Request send from GCS to Companion Computer for knowing RFM details
-      </description>
-      <field name="target_system" type="uint8_t">System ID (0 for broadcast)</field>
-      <field name="target_component" type="uint8_t">Component ID (0 for broadcast)</field>
-      <field name="ver" type="char[10]">Version of RFM code</field>
-      <field name="len_ver" type="uint8_t">Version of RFM code length</field>
-      <field name="ver_crc32" type="char[10]">CRC32 Hash of version</field>
-      <field name="len_ver_crc32" type="uint8_t">CRC32 Hash of version length</field>
-      <field name="rpas_id" type="char[20]">RPAS ID or Drone ID</field>
-      <field name="len_rpas_id" type="uint8_t">RPAS ID or Drone ID lenght</field>
-      <field name="rpas_model_id" type="char[20]">RPAS model number as per DGCA</field>
-      <field name="len_rpas_model_id" type="uint8_t">RPAS model number as per DGCA length
-      </field>
-      <field name="uin" type="char[10]">RPAS UIN</field>
-      <field name="len_uin" type="uint8_t">RPAS UIN length</field>
-      <field name="uuid" type="char[20]">RPAS UUID</field>
-      <field name="len_uuid" type="uint8_t">RPAS UUID length</field>
-      <field name="keyrot_time" type="char[15]">Last key rotation time</field>
-      <field name="len_keyrot_time" type="uint8_t">Last key rotation time</field>
+    <message id="6004" name="NPNT_RFM_DETAIL">
+      <description>1)Request send from GCS to Companion Computer for knowing RFM details </description>
+      <field type="uint8_t" name="target_system">System ID (0 for broadcast)</field>
+      <field type="uint8_t" name="target_component">Component ID (0 for broadcast)</field>
+      <field type="char[10]" name="ver">Version of RFM code</field>
+      <field type="uint8_t" name="len_ver">Version of RFM code length</field>
+      <field type="char[10]" name="ver_crc32">CRC32 Hash of version</field>
+      <field type="uint8_t" name="len_ver_crc32">CRC32 Hash of version length</field>
+      <field type="char[20]" name="rpas_id">RPAS ID or Drone ID</field>
+      <field type="uint8_t" name="len_rpas_id">RPAS ID or Drone ID lenght</field>
+      <field type="char[20]" name="rpas_model_id">RPAS model number as per DGCA</field>
+      <field type="uint8_t" name="len_rpas_model_id">RPAS model number as per DGCA length</field>
+      <field type="char[10]" name="uin">RPAS UIN</field>
+      <field type="uint8_t" name="len_uin">RPAS UIN length</field>
     </message>
-    <message name="NPNT_GEOFENCE" id="6005">
-      <description>GeoFence coordinate from PA. Will be sent from RPi to GCS</description>
-      <field name="target_system" type="uint8_t">System ID (0 for broadcast)</field>
-      <field name="target_component" type="uint8_t">Component ID (0 for broadcast)</field>
-      <field name="lat" type="int32_t[10]">Latitude Array of Geofence</field>
-      <field name="lon" type="int32_t[10]">Longitude Array of Geofence</field>
+    <message id="6005" name="NPNT_GEOFENCE">
+      <description>GeoFence coordinate from PA. Will be sent from RPi to GCS </description>
+      <field type="uint8_t" name="target_system">System ID (0 for broadcast)</field>
+      <field type="uint8_t" name="target_component">Component ID (0 for broadcast)</field>
+      <field type="int32_t[10]" name="lat">Latitude Array of Geofence</field>
+      <field type="int32_t[10]" name="lon">Longitude Array of Geofence</field>
     </message>
-    <message name="NPNT_UUID_REGISTER" id="6006">
-      <description>1)Request send from GCS to Companion Computer to register UUID
-        2)Confirmation(0 or 1) from Comp. Computer to GCS
-      </description>
-      <field name="target_system" type="uint8_t">System ID (0 for broadcast)</field>
-      <field name="target_component" type="uint8_t">Component ID (0 for broadcast)</field>
-      <field name="confirm" type="uint8_t">0 -> not confirmed, 1 -> confirmed, send by
-        Comp.Computer
-      </field>
-      <field name="size" type="uint8_t">size of UIN send by Comp.Computer</field>
-      <field name="uuid" type="uint8_t[30]">UUID as string, send by GCS</field>
-    </message>
-    <message name="NPNT_KEY_ROTATION_TIME" id="6007">
-      <description>1)Request send from GCS to Companion Computer to update key rotation time
-        2)Confirmation(0 or 1) from Comp. Computer to GCS
-      </description>
-      <field name="target_system" type="uint8_t">System ID (0 for broadcast)</field>
-      <field name="target_component" type="uint8_t">Component ID (0 for broadcast)</field>
-      <field name="confirm" type="uint8_t">0 -> not confirmed, 1 -> confirmed, send by
-        Comp.Computer
-      </field>
-      <field name="size" type="uint8_t">size of key rotation time string send by
-        Comp.Computer
-      </field>
-      <field name="keyrot_time" type="char[15]">key rotation time as string, send by GCS
-      </field>
-    </message>
-    <message name="GA3A_SPRAY_WP_INDEX" id="6008">
-      <description>Spray waypoint, start-stop pair send from GCS to Companion Computer
-      </description>
-      <field name="target_system" type="uint8_t">System ID (0 for broadcast)</field>
-      <field name="target_component" type="uint8_t">Component ID (0 for broadcast)</field>
-      <field name="sequence" type="uint16_t">sequence of start-stop waypoint pair send by GCS,
-        Companion computer acknowledges by sending back (sequence+1)
-      </field>
-      <field name="start_wp" type="uint16_t">waypoint at which spray starts</field>
-      <field name="end_wp" type="uint16_t">waypoint at which spray ends</field>
-    </message>
-    <message name="NPNT_FIRMWARE_UPDATE_RESULT" id="6009">
-      <description>Firmware update result from Comp. Computer to GCS</description>
-      <field name="target_system" type="uint8_t">System ID (0 for broadcast)</field>
-      <field name="target_component" type="uint8_t">Component ID (0 for broadcast)</field>
-      <field name="result" type="uint8_t">0 -> firmware update failed, 1 -> firmware update
-        successful
-      </field>
-      <field name="remarks" type="char[200]">firmware update result remarks</field>
-    </message>
-    <message name="GA_CC_STATUS_TEXT" id="6010">
-      <description>Status text message from Comp. Computer to GCS</description>
-      <field name="target_system" type="uint8_t">System ID (0 for broadcast)</field>
-      <field name="target_component" type="uint8_t">Component ID (0 for broadcast)</field>
-      <field name="status_text" type="char[250]">status text message</field>
-    </message>
-    <message name="GA_MAV_BATT_STATUS" id="7000">
+    <message id="7000" name="GA_MAV_BATT_STATUS">
       <description>Battery data from Companion computer</description>
-      <field name="target_system" type="uint8_t">System ID (0 for broadcast)</field>
-      <field name="target_component" type="uint8_t">Component ID (0 for broadcast)</field>
-      <field name="voltage" type="int16_t">Battery Voltage * 10</field>
-      <field name="current" type="int16_t">Battery Current * 10</field>
-      <field name="consumed_mah" type="int32_t">Battery Consumed mAh</field>
+      <field type="uint8_t" name="target_system">System ID (0 for broadcast)</field>
+      <field type="uint8_t" name="target_component">Component ID (0 for broadcast)</field>
+      <field type="int16_t" name="voltage">Battery Voltage * 10</field>
+      <field type="int16_t" name="current">Battery Current * 10</field>
+      <field type="int32_t" name="consumed_mah">Battery Consumed mAh</field>
     </message>
-    <message name="GA_SET_PARAM" id="7001">
+    <message id="7001" name="GA_SET_PARAM">
       <description>Vehicle ID Parameter Setter</description>
-      <field name="target_system" type="uint8_t">System ID (0 for broadcast)</field>
-      <field name="target_component" type="uint8_t">Component ID (0 for broadcast)</field>
-      <field name="param_id" type="char[20]">Key</field>
-      <field name="param_val" type="char[50]">Value</field>
+      <field type="uint8_t" name="target_system">System ID (0 for broadcast)</field>
+      <field type="uint8_t" name="target_component">Component ID (0 for broadcast)</field>
+      <field type="char[20]" name="param_id">Key</field>
+      <field type="char[50]" name="param_val">Value</field>
     </message>
-    <message name="GA_GET_PARAM" id="7002">
+    <message id="7002" name="GA_GET_PARAM">
       <description>Vehicle ID Paramater Fetcher</description>
-      <field name="target_system" type="uint8_t">System ID (0 for broadcast)</field>
-      <field name="target_component" type="uint8_t">Component ID (0 for broadcast)</field>
-      <field name="param_id" type="char[20]">Key</field>
+      <field type="uint8_t" name="target_system">System ID (0 for broadcast)</field>
+      <field type="uint8_t" name="target_component">Component ID (0 for broadcast)</field>
+      <field type="char[20]" name="param_id">Key</field>
     </message>
-    <message name="GA_PARAM" id="7003">
+    <message id="7003" name="GA_PARAM">
       <description>Vehicle Prameter info</description>
-      <field name="target_system" type="uint8_t">System ID (0 for broadcast)</field>
-      <field name="target_component" type="uint8_t">Component ID (0 for broadcast)</field>
-      <field name="param_id" type="char[20]">Key</field>
-      <field name="param_val" type="char[50]">Value</field>
+      <field type="uint8_t" name="target_system">System ID (0 for broadcast)</field>
+      <field type="uint8_t" name="target_component">Component ID (0 for broadcast)</field>
+      <field type="char[20]" name="param_id">Key</field>
+      <field type="char[50]" name="param_val">Value</field>
     </message>
-    <message name="GA_COMMAND" id="7004">
+    <message id="7004" name="GA_COMMAND">
       <description>GA Command send from GCS</description>
-      <field name="target_system" type="uint8_t">System ID (0 for broadcast)</field>
-      <field name="target_component" type="uint8_t">Component ID (0 for broadcast)</field>
-      <field name="time_unix_usec" type="uint64_t" units="us">Timestamp (UNIX epoch time).
-      </field>
-      <field name="command" type="uint8_t">command id</field>
+      <field type="uint8_t" name="target_system">System ID (0 for broadcast)</field>
+      <field type="uint8_t" name="target_component">Component ID (0 for broadcast)</field>
+      <field type="uint64_t" name="time_unix_usec" units="us">Timestamp (UNIX epoch time).</field>
+      <field type="uint8_t" name="command">command id</field>
     </message>
-    <message name="GA_COMMAND_ACK" id="7005">
+    <message id="7005" name="GA_COMMAND_ACK">
       <description>GA Command Acknowledgement from CC</description>
-      <field name="target_system" type="uint8_t">System ID (0 for broadcast)</field>
-      <field name="target_component" type="uint8_t">Component ID (0 for broadcast)</field>
-      <field name="command" type="uint8_t">command id</field>
-      <field name="result" type="uint8_t">0->failed, 1->passed</field>
-      <field name="reason" type="char[50]">Reason of failure</field>
+      <field type="uint8_t" name="target_system">System ID (0 for broadcast)</field>
+      <field type="uint8_t" name="target_component">Component ID (0 for broadcast)</field>
+      <field type="uint8_t" name="command">command id</field>
+      <field type="uint8_t" name="result">0->failed, 1->passed</field>
+      <field type="char[50]" name="reason">Reason of failure</field>
     </message>
-    <message name="BOUNDARY_COUNT" id="7006">
+    <message id="7006" name="GA_GET_PARAM_EXT">
+      <description>FCS Parameter request</description>
+      <field type="uint8_t" name="target_system">System ID (0 for broadcast)</field>
+      <field type="uint8_t" name="target_component">Component ID (0 for broadcast)</field>
+      <field type="char[50]" name="param_id">Key</field>
+      <field type="char[50]" name="param_aux_id1">Value</field>
+      <field type="char[50]" name="param_aux_id2">Value</field>
+    </message>
+    <message id="7007" name="BOUNDARY_COUNT">
       <description>Total number of vertical of a boundary</description>
-      <field name="target_system" type="uint8_t">System ID (0 for broadcast)</field>
-      <field name="target_component" type="uint8_t">Component ID (0 for broadcast)</field>
-      <field name="boundary_type" type="uint8_t">Boundary Type (0 for boundary and 1 for
-        obstacle)
-      </field>
-      <field name="count" type="uint8_t">count</field>
-      <field name="obstacle_no" type="uint8_t">key</field>
-      <field name="total_obstacles" type="uint8_t">total number of obstacles</field>
+      <field type="uint8_t" name="target_system">System ID (0 for broadcast)</field>
+      <field type="uint8_t" name="target_component">Component ID (0 for broadcast)</field>
+      <field type="uint8_t" name="boundary_type">Boundary Type (0 for boundary and 1 for obstacle)</field>
+      <field type="uint8_t" name="count">count</field>
+      <field type="uint8_t" name="obstacle_no">key</field>
+      <field type="uint8_t" name="total_obstacles">total number of obstacles</field>
     </message>
-    <message name="BOUNDARY_REQUEST_INT" id="7007">
+    <message id="7008" name="BOUNDARY_REQUEST_INT">
       <description>Boundary Point Request</description>
-      <field name="target_system" type="uint8_t">System ID (0 for broadcast)</field>
-      <field name="target_component" type="uint8_t">Component ID (0 for broadcast)</field>
-      <field name="boundary_type" type="uint8_t">Boundary Type (0 for boundary and 1 for
-        obstacle)
-      </field>
-      <field name="seqno" type="uint8_t">seqno</field>
-      <field name="obstacle_no" type="uint8_t">key</field>
+      <field type="uint8_t" name="target_system">System ID (0 for broadcast)</field>
+      <field type="uint8_t" name="target_component">Component ID (0 for broadcast)</field>
+      <field type="uint8_t" name="boundary_type">Boundary Type (0 for boundary and 1 for obstacle)</field>
+      <field type="uint8_t" name="seqno">seqno</field>
+      <field type="uint8_t" name="obstacle_no">key</field>
     </message>
-    <message name="BOUNDARY_ITEM_INT" id="7008">
+    <message id="7009" name="BOUNDARY_ITEM_INT">
       <description>Boundary Item send</description>
-      <field name="target_system" type="uint8_t">System ID (0 for broadcast)</field>
-      <field name="target_component" type="uint8_t">Component ID (0 for broadcast)</field>
-      <field name="boundary_type" type="uint8_t">Boundary Type (0 for boundary and 1 for
-        obstacle)
-      </field>
-      <field name="seqno" type="uint8_t">seqno</field>
-      <field name="lat" type="int32_t">Latitude in deg*1e7</field>
-      <field name="lon" type="int32_t">Longitude in deg*1e7</field>
-      <field name="margin" type="int32_t">Margin in centimeter</field>
-      <field name="obstacle_no" type="uint8_t">key</field>
+      <field type="uint8_t" name="target_system">System ID (0 for broadcast)</field>
+      <field type="uint8_t" name="target_component">Component ID (0 for broadcast)</field>
+      <field type="uint8_t" name="boundary_type">Boundary Type (0 for boundary and 1 for obstacle)</field>
+      <field type="uint8_t" name="seqno">seqno</field>
+      <field type="int32_t" name="lat">Latitude in deg*1e7</field>
+      <field type="int32_t" name="lon">Longitude in deg*1e7</field>
+      <field type="int32_t" name="margin">Margin in centimeter</field>
+      <field type="uint8_t" name="obstacle_no">key</field>
     </message>
-    <message name="BOUNDARY_ACK" id="7009">
+    <message id="7010" name="BOUNDARY_ACK">
       <description>Boundary ACK</description>
-      <field name="target_system" type="uint8_t">System ID (0 for broadcast)</field>
-      <field name="target_component" type="uint8_t">Component ID (0 for broadcast)</field>
-      <field name="boundary_type" type="uint8_t">Boundary Type (0 for boundary and 1 for
-        obstacle)
-      </field>
-      <field name="ack" type="char[20]">Key</field>
-      <field name="obstacle_no" type="uint8_t">key</field>
+      <field type="uint8_t" name="target_system">System ID (0 for broadcast)</field>
+      <field type="uint8_t" name="target_component">Component ID (0 for broadcast)</field>
+      <field type="uint8_t" name="boundary_type">Boundary Type (0 for boundary and 1 for obstacle)</field>
+      <field type="char[20]" name="ack">Key</field>
+      <field type="uint8_t" name="obstacle_no">key</field>
     </message>
-    <message id="7010" name="SMART_PATH_REQUEST_LIST"> (in loop)
+    <message id="7011" name="SMART_PATH_REQUEST_LIST">
       <description>Smart Path Request</description>
       <field type="uint8_t" name="target_system">System ID (0 for broadcast)</field>
       <field type="uint8_t" name="target_component">Component ID (0 for broadcast)</field>
     </message>
-    <message id="7011" name="SMART_PATH_COUNT">
+    <message id="7012" name="SMART_PATH_COUNT">
       <description>Total number of vertical of a smart path</description>
       <field type="uint8_t" name="target_system">System ID (0 for broadcast)</field>
       <field type="uint8_t" name="target_component">Component ID (0 for broadcast)</field>
       <field type="uint8_t" name="count">count</field>
     </message>
-    <message id="7012" name="SMART_PATH_REQUEST_INT">
+    <message id="7013" name="SMART_PATH_REQUEST_INT">
       <description>Smart Path Point Request</description>
       <field type="uint8_t" name="target_system">System ID (0 for broadcast)</field>
       <field type="uint8_t" name="target_component">Component ID (0 for broadcast)</field>
       <field type="uint8_t" name="seqno">seqno</field>
     </message>
-    <message id="7013" name="SMART_PATH_ITEM_INT">
+    <message id="7014" name="SMART_PATH_ITEM_INT">
       <description>Smart Path Item send</description>
       <field type="uint8_t" name="target_system">System ID (0 for broadcast)</field>
       <field type="uint8_t" name="target_component">Component ID (0 for broadcast)</field>
@@ -2044,7 +1908,7 @@
       <field type="int32_t" name="lon">Longitude in deg*1e7</field>
       <field type="float" name="alt" units="m">Altitude (MSL)</field>
     </message>
-    <message id="7014" name="SMART_PATH_ACK">
+    <message id="7015" name="SMART_PATH_ACK">
       <description>Boundary ACK</description>
       <field type="uint8_t" name="target_system">System ID (0 for broadcast)</field>
       <field type="uint8_t" name="target_component">Component ID (0 for broadcast)</field>

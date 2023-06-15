@@ -12,7 +12,7 @@ import java.util.Objects;
  * Boundary ACK 
  */
 @MavlinkMessageInfo(
-        id = 7014,
+        id = 7015,
         crc = 182,
         description = "Boundary ACK"
 )

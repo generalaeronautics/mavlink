@@ -3,7 +3,6 @@ package io.dronefleet.mavlink.ardupilotmega;
 import io.dronefleet.mavlink.AbstractMavlinkDialect;
 import io.dronefleet.mavlink.MavlinkDialect;
 import io.dronefleet.mavlink.common.CommonDialect;
-import io.dronefleet.mavlink.cubepilot.CubepilotDialect;
 import io.dronefleet.mavlink.icarous.IcarousDialect;
 import io.dronefleet.mavlink.uavionix.UavionixDialect;
 import io.dronefleet.mavlink.util.UnmodifiableMapBuilder;
@@ -20,8 +19,7 @@ public final class ArdupilotmegaDialect extends AbstractMavlinkDialect {
     private static final List<MavlinkDialect> dependencies = Arrays.asList(
             new CommonDialect(),
             new UavionixDialect(),
-            new IcarousDialect(),
-            new CubepilotDialect());
+            new IcarousDialect());
 
     /**
      * A list of all message types supported by this dialect.
@@ -91,7 +89,6 @@ public final class ArdupilotmegaDialect extends AbstractMavlinkDialect {
             .put(11036, OsdParamShowConfigReply.class)
             .put(11037, ObstacleDistance3d.class)
             .put(11038, WaterDepth.class)
-            .put(11039, McuStatus.class)
             .put(5000, Ga3aPayloadStatus.class)
             .put(5001, Ga3aMissionCmd.class)
             .put(5002, Ga3aResumeCmd.class)
@@ -101,26 +98,22 @@ public final class ArdupilotmegaDialect extends AbstractMavlinkDialect {
             .put(6003, NpntKeyRotation.class)
             .put(6004, NpntRfmDetail.class)
             .put(6005, NpntGeofence.class)
-            .put(6006, NpntUuidRegister.class)
-            .put(6007, NpntKeyRotationTime.class)
-            .put(6008, Ga3aSprayWpIndex.class)
-            .put(6009, NpntFirmwareUpdateResult.class)
-            .put(6010, GaCcStatusText.class)
             .put(7000, GaMavBattStatus.class)
             .put(7001, GaSetParam.class)
             .put(7002, GaGetParam.class)
             .put(7003, GaParam.class)
             .put(7004, GaCommand.class)
             .put(7005, GaCommandAck.class)
-            .put(7006, BoundaryCount.class)
-            .put(7007, BoundaryRequestInt.class)
-            .put(7008, BoundaryItemInt.class)
-            .put(7009, BoundaryAck.class)
-            .put(7010, SmartPathRequestList.class)
-            .put(7011, SmartPathCount.class)
-            .put(7012, SmartPathRequestInt.class)
-            .put(7013, SmartPathItemInt.class)
-            .put(7014, SmartPathAck.class)
+            .put(7006, GaGetParamExt.class)
+            .put(7007, BoundaryCount.class)
+            .put(7008, BoundaryRequestInt.class)
+            .put(7009, BoundaryItemInt.class)
+            .put(7010, BoundaryAck.class)
+            .put(7011, SmartPathRequestList.class)
+            .put(7012, SmartPathCount.class)
+            .put(7013, SmartPathRequestInt.class)
+            .put(7014, SmartPathItemInt.class)
+            .put(7015, SmartPathAck.class)
             .build();
 
     public ArdupilotmegaDialect() {

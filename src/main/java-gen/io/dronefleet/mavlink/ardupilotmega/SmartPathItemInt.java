@@ -12,7 +12,7 @@ import java.util.Objects;
  * Smart Path Item send 
  */
 @MavlinkMessageInfo(
-        id = 7013,
+        id = 7014,
         crc = 105,
         description = "Smart Path Item send"
 )

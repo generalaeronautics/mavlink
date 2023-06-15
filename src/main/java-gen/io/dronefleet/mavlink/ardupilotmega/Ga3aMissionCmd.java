@@ -77,8 +77,7 @@ public final class Ga3aMissionCmd {
     @MavlinkFieldInfo(
             position = 3,
             unitSize = 2,
-            description = "Waypoint from where spraying\n"
-                            + "        should start"
+            description = "Waypoint from where spraying should start"
     )
     public final int startWp() {
         return this.startWp;
@@ -90,8 +89,7 @@ public final class Ga3aMissionCmd {
     @MavlinkFieldInfo(
             position = 4,
             unitSize = 2,
-            description = "Waypoint at which spraying should\n"
-                            + "        stop"
+            description = "Waypoint at which spraying should stop"
     )
     public final int endWp() {
         return this.endWp;
@@ -115,8 +113,7 @@ public final class Ga3aMissionCmd {
     @MavlinkFieldInfo(
             position = 6,
             unitSize = 2,
-            description = "Angle of mission respect to\n"
-                            + "        North"
+            description = "Angle of mission respect to North"
     )
     public final int missionYaw() {
         return this.missionYaw;
@@ -203,8 +200,7 @@ public final class Ga3aMissionCmd {
         @MavlinkFieldInfo(
                 position = 3,
                 unitSize = 2,
-                description = "Waypoint from where spraying\n"
-                                + "        should start"
+                description = "Waypoint from where spraying should start"
         )
         public final Builder startWp(int startWp) {
             this.startWp = startWp;
@@ -217,8 +213,7 @@ public final class Ga3aMissionCmd {
         @MavlinkFieldInfo(
                 position = 4,
                 unitSize = 2,
-                description = "Waypoint at which spraying should\n"
-                                + "        stop"
+                description = "Waypoint at which spraying should stop"
         )
         public final Builder endWp(int endWp) {
             this.endWp = endWp;
@@ -244,8 +239,7 @@ public final class Ga3aMissionCmd {
         @MavlinkFieldInfo(
                 position = 6,
                 unitSize = 2,
-                description = "Angle of mission respect to\n"
-                                + "        North"
+                description = "Angle of mission respect to North"
         )
         public final Builder missionYaw(int missionYaw) {
             this.missionYaw = missionYaw;

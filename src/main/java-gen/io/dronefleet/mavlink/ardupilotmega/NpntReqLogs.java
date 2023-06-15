@@ -15,9 +15,7 @@ import java.util.Objects;
 @MavlinkMessageInfo(
         id = 6001,
         crc = 159,
-        description = "1)Request send from GCS to Companion Computer to prepare logs to download,\n"
-                        + "        and to note current date and time. 2)Confirmation from Comp. Computer to GCS to\n"
-                        + "        initiate downloading"
+        description = "1)Request send from GCS to Companion Computer to prepare logs to download, and to note current date and time. 2)Confirmation from Comp. Computer to GCS to initiate downloading"
 )
 public final class NpntReqLogs {
     private final int targetSystem;
@@ -73,8 +71,7 @@ public final class NpntReqLogs {
     @MavlinkFieldInfo(
             position = 3,
             unitSize = 1,
-            description = "0 -> not confirmed, 1 -> confirmed, send by\n"
-                            + "        Comp.Computer"
+            description = "0 -> not confirmed, 1 -> confirmed, send by Comp.Computer"
     )
     public final int reqConfirm() {
         return this.reqConfirm;
@@ -87,8 +84,7 @@ public final class NpntReqLogs {
             position = 4,
             unitSize = 1,
             arraySize = 15,
-            description = "Date_time as string format yyyymmdd_hhmmss,\n"
-                            + "        send by GCS"
+            description = "Date_time as string format yyyymmdd_hhmmss, send by GCS"
     )
     public final byte[] dateTime() {
         return this.dateTime;
@@ -165,8 +161,7 @@ public final class NpntReqLogs {
         @MavlinkFieldInfo(
                 position = 3,
                 unitSize = 1,
-                description = "0 -> not confirmed, 1 -> confirmed, send by\n"
-                                + "        Comp.Computer"
+                description = "0 -> not confirmed, 1 -> confirmed, send by Comp.Computer"
         )
         public final Builder reqConfirm(int reqConfirm) {
             this.reqConfirm = reqConfirm;
@@ -180,8 +175,7 @@ public final class NpntReqLogs {
                 position = 4,
                 unitSize = 1,
                 arraySize = 15,
-                description = "Date_time as string format yyyymmdd_hhmmss,\n"
-                                + "        send by GCS"
+                description = "Date_time as string format yyyymmdd_hhmmss, send by GCS"
         )
         public final Builder dateTime(byte[] dateTime) {
             this.dateTime = dateTime;

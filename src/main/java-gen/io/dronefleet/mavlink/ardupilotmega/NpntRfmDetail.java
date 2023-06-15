@@ -13,7 +13,7 @@ import java.util.Objects;
  */
 @MavlinkMessageInfo(
         id = 6004,
-        crc = 232,
+        crc = 116,
         description = "1)Request send from GCS to Companion Computer for knowing RFM details"
 )
 public final class NpntRfmDetail {
@@ -41,18 +41,9 @@ public final class NpntRfmDetail {
 
     private final int lenUin;
 
-    private final String uuid;
-
-    private final int lenUuid;
-
-    private final String keyrotTime;
-
-    private final int lenKeyrotTime;
-
     private NpntRfmDetail(int targetSystem, int targetComponent, String ver, int lenVer,
             String verCrc32, int lenVerCrc32, String rpasId, int lenRpasId, String rpasModelId,
-            int lenRpasModelId, String uin, int lenUin, String uuid, int lenUuid, String keyrotTime,
-            int lenKeyrotTime) {
+            int lenRpasModelId, String uin, int lenUin) {
         this.targetSystem = targetSystem;
         this.targetComponent = targetComponent;
         this.ver = ver;
@@ -65,10 +56,6 @@ public final class NpntRfmDetail {
         this.lenRpasModelId = lenRpasModelId;
         this.uin = uin;
         this.lenUin = lenUin;
-        this.uuid = uuid;
-        this.lenUuid = lenUuid;
-        this.keyrotTime = keyrotTime;
-        this.lenKeyrotTime = lenKeyrotTime;
     }
 
     /**
@@ -228,56 +215,6 @@ public final class NpntRfmDetail {
         return this.lenUin;
     }
 
-    /**
-     * RPAS UUID 
-     */
-    @MavlinkFieldInfo(
-            position = 13,
-            unitSize = 1,
-            arraySize = 20,
-            description = "RPAS UUID"
-    )
-    public final String uuid() {
-        return this.uuid;
-    }
-
-    /**
-     * RPAS UUID length 
-     */
-    @MavlinkFieldInfo(
-            position = 14,
-            unitSize = 1,
-            description = "RPAS UUID length"
-    )
-    public final int lenUuid() {
-        return this.lenUuid;
-    }
-
-    /**
-     * Last key rotation time 
-     */
-    @MavlinkFieldInfo(
-            position = 15,
-            unitSize = 1,
-            arraySize = 15,
-            description = "Last key rotation time"
-    )
-    public final String keyrotTime() {
-        return this.keyrotTime;
-    }
-
-    /**
-     * Last key rotation time 
-     */
-    @MavlinkFieldInfo(
-            position = 16,
-            unitSize = 1,
-            description = "Last key rotation time"
-    )
-    public final int lenKeyrotTime() {
-        return this.lenKeyrotTime;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -295,10 +232,6 @@ public final class NpntRfmDetail {
         if (!Objects.deepEquals(lenRpasModelId, other.lenRpasModelId)) return false;
         if (!Objects.deepEquals(uin, other.uin)) return false;
         if (!Objects.deepEquals(lenUin, other.lenUin)) return false;
-        if (!Objects.deepEquals(uuid, other.uuid)) return false;
-        if (!Objects.deepEquals(lenUuid, other.lenUuid)) return false;
-        if (!Objects.deepEquals(keyrotTime, other.keyrotTime)) return false;
-        if (!Objects.deepEquals(lenKeyrotTime, other.lenKeyrotTime)) return false;
         return true;
     }
 
@@ -317,10 +250,6 @@ public final class NpntRfmDetail {
         result = 31 * result + Objects.hashCode(lenRpasModelId);
         result = 31 * result + Objects.hashCode(uin);
         result = 31 * result + Objects.hashCode(lenUin);
-        result = 31 * result + Objects.hashCode(uuid);
-        result = 31 * result + Objects.hashCode(lenUuid);
-        result = 31 * result + Objects.hashCode(keyrotTime);
-        result = 31 * result + Objects.hashCode(lenKeyrotTime);
         return result;
     }
 
@@ -337,11 +266,7 @@ public final class NpntRfmDetail {
                  + ", rpasModelId=" + rpasModelId
                  + ", lenRpasModelId=" + lenRpasModelId
                  + ", uin=" + uin
-                 + ", lenUin=" + lenUin
-                 + ", uuid=" + uuid
-                 + ", lenUuid=" + lenUuid
-                 + ", keyrotTime=" + keyrotTime
-                 + ", lenKeyrotTime=" + lenKeyrotTime + "}";
+                 + ", lenUin=" + lenUin + "}";
     }
 
     public static final class Builder {
@@ -368,14 +293,6 @@ public final class NpntRfmDetail {
         private String uin;
 
         private int lenUin;
-
-        private String uuid;
-
-        private int lenUuid;
-
-        private String keyrotTime;
-
-        private int lenKeyrotTime;
 
         /**
          * System ID (0 for broadcast) 
@@ -538,62 +455,8 @@ public final class NpntRfmDetail {
             return this;
         }
 
-        /**
-         * RPAS UUID 
-         */
-        @MavlinkFieldInfo(
-                position = 13,
-                unitSize = 1,
-                arraySize = 20,
-                description = "RPAS UUID"
-        )
-        public final Builder uuid(String uuid) {
-            this.uuid = uuid;
-            return this;
-        }
-
-        /**
-         * RPAS UUID length 
-         */
-        @MavlinkFieldInfo(
-                position = 14,
-                unitSize = 1,
-                description = "RPAS UUID length"
-        )
-        public final Builder lenUuid(int lenUuid) {
-            this.lenUuid = lenUuid;
-            return this;
-        }
-
-        /**
-         * Last key rotation time 
-         */
-        @MavlinkFieldInfo(
-                position = 15,
-                unitSize = 1,
-                arraySize = 15,
-                description = "Last key rotation time"
-        )
-        public final Builder keyrotTime(String keyrotTime) {
-            this.keyrotTime = keyrotTime;
-            return this;
-        }
-
-        /**
-         * Last key rotation time 
-         */
-        @MavlinkFieldInfo(
-                position = 16,
-                unitSize = 1,
-                description = "Last key rotation time"
-        )
-        public final Builder lenKeyrotTime(int lenKeyrotTime) {
-            this.lenKeyrotTime = lenKeyrotTime;
-            return this;
-        }
-
         public final NpntRfmDetail build() {
-            return new NpntRfmDetail(targetSystem, targetComponent, ver, lenVer, verCrc32, lenVerCrc32, rpasId, lenRpasId, rpasModelId, lenRpasModelId, uin, lenUin, uuid, lenUuid, keyrotTime, lenKeyrotTime);
+            return new NpntRfmDetail(targetSystem, targetComponent, ver, lenVer, verCrc32, lenVerCrc32, rpasId, lenRpasId, rpasModelId, lenRpasModelId, uin, lenUin);
         }
     }
 }

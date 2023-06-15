@@ -3,22 +3,18 @@ package io.dronefleet.mavlink.ardupilotmega;
 import io.dronefleet.mavlink.annotations.MavlinkFieldInfo;
 import io.dronefleet.mavlink.annotations.MavlinkMessageBuilder;
 import io.dronefleet.mavlink.annotations.MavlinkMessageInfo;
-import io.dronefleet.mavlink.common.MavMountMode;
-import io.dronefleet.mavlink.util.EnumValue;
-import java.lang.Enum;
 import java.lang.Object;
 import java.lang.Override;
 import java.lang.String;
-import java.util.Collection;
 import java.util.Objects;
 
 /**
- * Message with some status from autopilot to GCS about camera or antenna mount. 
+ * Message with some status from APM to GCS about camera or antenna mount. 
  */
 @MavlinkMessageInfo(
         id = 158,
         crc = 134,
-        description = "Message with some status from autopilot to GCS about camera or antenna mount."
+        description = "Message with some status from APM to GCS about camera or antenna mount."
 )
 public final class MountStatus {
     private final int targetSystem;
@@ -31,16 +27,13 @@ public final class MountStatus {
 
     private final int pointingC;
 
-    private final EnumValue<MavMountMode> mountMode;
-
     private MountStatus(int targetSystem, int targetComponent, int pointingA, int pointingB,
-            int pointingC, EnumValue<MavMountMode> mountMode) {
+            int pointingC) {
         this.targetSystem = targetSystem;
         this.targetComponent = targetComponent;
         this.pointingA = pointingA;
         this.pointingB = pointingB;
         this.pointingC = pointingC;
-        this.mountMode = mountMode;
     }
 
     /**
@@ -114,20 +107,6 @@ public final class MountStatus {
         return this.pointingC;
     }
 
-    /**
-     * Mount operating mode. 
-     */
-    @MavlinkFieldInfo(
-            position = 7,
-            unitSize = 1,
-            enumType = MavMountMode.class,
-            extension = true,
-            description = "Mount operating mode."
-    )
-    public final EnumValue<MavMountMode> mountMode() {
-        return this.mountMode;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -138,7 +117,6 @@ public final class MountStatus {
         if (!Objects.deepEquals(pointingA, other.pointingA)) return false;
         if (!Objects.deepEquals(pointingB, other.pointingB)) return false;
         if (!Objects.deepEquals(pointingC, other.pointingC)) return false;
-        if (!Objects.deepEquals(mountMode, other.mountMode)) return false;
         return true;
     }
 
@@ -150,7 +128,6 @@ public final class MountStatus {
         result = 31 * result + Objects.hashCode(pointingA);
         result = 31 * result + Objects.hashCode(pointingB);
         result = 31 * result + Objects.hashCode(pointingC);
-        result = 31 * result + Objects.hashCode(mountMode);
         return result;
     }
 
@@ -160,8 +137,7 @@ public final class MountStatus {
                  + ", targetComponent=" + targetComponent
                  + ", pointingA=" + pointingA
                  + ", pointingB=" + pointingB
-                 + ", pointingC=" + pointingC
-                 + ", mountMode=" + mountMode + "}";
+                 + ", pointingC=" + pointingC + "}";
     }
 
     public static final class Builder {
@@ -174,8 +150,6 @@ public final class MountStatus {
         private int pointingB;
 
         private int pointingC;
-
-        private EnumValue<MavMountMode> mountMode;
 
         /**
          * System ID. 
@@ -245,44 +219,8 @@ public final class MountStatus {
             return this;
         }
 
-        /**
-         * Mount operating mode. 
-         */
-        @MavlinkFieldInfo(
-                position = 7,
-                unitSize = 1,
-                enumType = MavMountMode.class,
-                extension = true,
-                description = "Mount operating mode."
-        )
-        public final Builder mountMode(EnumValue<MavMountMode> mountMode) {
-            this.mountMode = mountMode;
-            return this;
-        }
-
-        /**
-         * Mount operating mode. 
-         */
-        public final Builder mountMode(MavMountMode entry) {
-            return mountMode(EnumValue.of(entry));
-        }
-
-        /**
-         * Mount operating mode. 
-         */
-        public final Builder mountMode(Enum... flags) {
-            return mountMode(EnumValue.create(flags));
-        }
-
-        /**
-         * Mount operating mode. 
-         */
-        public final Builder mountMode(Collection<Enum> flags) {
-            return mountMode(EnumValue.create(flags));
-        }
-
         public final MountStatus build() {
-            return new MountStatus(targetSystem, targetComponent, pointingA, pointingB, pointingC, mountMode);
+            return new MountStatus(targetSystem, targetComponent, pointingA, pointingB, pointingC);
         }
     }
 }

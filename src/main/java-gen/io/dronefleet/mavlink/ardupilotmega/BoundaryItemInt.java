@@ -12,7 +12,7 @@ import java.util.Objects;
  * Boundary Item send 
  */
 @MavlinkMessageInfo(
-        id = 7008,
+        id = 7009,
         crc = 239,
         description = "Boundary Item send"
 )
@@ -83,8 +83,7 @@ public final class BoundaryItemInt {
     @MavlinkFieldInfo(
             position = 3,
             unitSize = 1,
-            description = "Boundary Type (0 for boundary and 1 for\n"
-                            + "        obstacle)"
+            description = "Boundary Type (0 for boundary and 1 for obstacle)"
     )
     public final int boundaryType() {
         return this.boundaryType;
@@ -244,8 +243,7 @@ public final class BoundaryItemInt {
         @MavlinkFieldInfo(
                 position = 3,
                 unitSize = 1,
-                description = "Boundary Type (0 for boundary and 1 for\n"
-                                + "        obstacle)"
+                description = "Boundary Type (0 for boundary and 1 for obstacle)"
         )
         public final Builder boundaryType(int boundaryType) {
             this.boundaryType = boundaryType;

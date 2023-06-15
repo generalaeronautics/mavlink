@@ -15,8 +15,7 @@ import java.util.Objects;
 @MavlinkMessageInfo(
         id = 6003,
         crc = 207,
-        description = "1)Request send from GCS to Companion Computer for key rotation\n"
-                        + "        2)Confirmation(0 or 1) from Comp. Computer to GCS, 0 to download pending flight logs"
+        description = "1)Request send from GCS to Companion Computer for key rotation 2)Confirmation(0 or 1) from Comp. Computer to GCS, 0 to download pending flight logs"
 )
 public final class NpntKeyRotation {
     private final int targetSystem;
@@ -69,8 +68,7 @@ public final class NpntKeyRotation {
     @MavlinkFieldInfo(
             position = 3,
             unitSize = 1,
-            description = "0 -> not confirmed, 1 -> confirmed, send by\n"
-                            + "        Comp.Computer"
+            description = "0 -> not confirmed, 1 -> confirmed, send by Comp.Computer"
     )
     public final int confirm() {
         return this.confirm;
@@ -142,8 +140,7 @@ public final class NpntKeyRotation {
         @MavlinkFieldInfo(
                 position = 3,
                 unitSize = 1,
-                description = "0 -> not confirmed, 1 -> confirmed, send by\n"
-                                + "        Comp.Computer"
+                description = "0 -> not confirmed, 1 -> confirmed, send by Comp.Computer"
         )
         public final Builder confirm(int confirm) {
             this.confirm = confirm;

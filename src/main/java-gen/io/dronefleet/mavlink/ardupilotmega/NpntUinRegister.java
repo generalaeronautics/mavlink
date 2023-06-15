@@ -15,8 +15,7 @@ import java.util.Objects;
 @MavlinkMessageInfo(
         id = 6002,
         crc = 71,
-        description = "1)Request send from GCS to Companion Computer to register UIN\n"
-                        + "        2)Confirmation(0 or 1) from Comp. Computer to GCS"
+        description = "1)Request send from GCS to Companion Computer to register UIN 2)Confirmation(0 or 1) from Comp. Computer to GCS"
 )
 public final class NpntUinRegister {
     private final int targetSystem;
@@ -76,8 +75,7 @@ public final class NpntUinRegister {
     @MavlinkFieldInfo(
             position = 3,
             unitSize = 1,
-            description = "0 -> not confirmed, 1 -> confirmed, send by\n"
-                            + "        Comp.Computer"
+            description = "0 -> not confirmed, 1 -> confirmed, send by Comp.Computer"
     )
     public final int confirm() {
         return this.confirm;
@@ -184,8 +182,7 @@ public final class NpntUinRegister {
         @MavlinkFieldInfo(
                 position = 3,
                 unitSize = 1,
-                description = "0 -> not confirmed, 1 -> confirmed, send by\n"
-                                + "        Comp.Computer"
+                description = "0 -> not confirmed, 1 -> confirmed, send by Comp.Computer"
         )
         public final Builder confirm(int confirm) {
             this.confirm = confirm;

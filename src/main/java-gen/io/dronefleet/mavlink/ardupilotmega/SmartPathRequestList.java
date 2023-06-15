@@ -9,13 +9,12 @@ import java.lang.String;
 import java.util.Objects;
 
 /**
- * (in loop) Smart Path Request 
+ * Smart Path Request 
  */
 @MavlinkMessageInfo(
-        id = 7010,
+        id = 7011,
         crc = 142,
-        description = "(in loop)\n"
-                        + "      Smart Path Request"
+        description = "Smart Path Request"
 )
 public final class SmartPathRequestList {
     private final int targetSystem;

@@ -9,12 +9,12 @@ import java.lang.String;
 import java.util.Objects;
 
 /**
- * State of autopilot RAM. 
+ * State of APM memory. 
  */
 @MavlinkMessageInfo(
         id = 152,
         crc = 208,
-        description = "State of autopilot RAM."
+        description = "State of APM memory."
 )
 public final class Meminfo {
     private final int brkval;

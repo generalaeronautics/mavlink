@@ -12,7 +12,7 @@ import java.util.Objects;
  * Total number of vertical of a smart path 
  */
 @MavlinkMessageInfo(
-        id = 7011,
+        id = 7012,
         crc = 195,
         description = "Total number of vertical of a smart path"
 )

@@ -12,7 +12,7 @@ import java.util.Objects;
  * Smart Path Point Request 
  */
 @MavlinkMessageInfo(
-        id = 7012,
+        id = 7013,
         crc = 54,
         description = "Smart Path Point Request"
 )

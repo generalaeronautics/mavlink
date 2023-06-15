@@ -12,7 +12,7 @@ import java.util.Objects;
  * Total number of vertical of a boundary 
  */
 @MavlinkMessageInfo(
-        id = 7006,
+        id = 7007,
         crc = 214,
         description = "Total number of vertical of a boundary"
 )
@@ -77,8 +77,7 @@ public final class BoundaryCount {
     @MavlinkFieldInfo(
             position = 3,
             unitSize = 1,
-            description = "Boundary Type (0 for boundary and 1 for\n"
-                            + "        obstacle)"
+            description = "Boundary Type (0 for boundary and 1 for obstacle)"
     )
     public final int boundaryType() {
         return this.boundaryType;
@@ -201,8 +200,7 @@ public final class BoundaryCount {
         @MavlinkFieldInfo(
                 position = 3,
                 unitSize = 1,
-                description = "Boundary Type (0 for boundary and 1 for\n"
-                                + "        obstacle)"
+                description = "Boundary Type (0 for boundary and 1 for obstacle)"
         )
         public final Builder boundaryType(int boundaryType) {
             this.boundaryType = boundaryType;
